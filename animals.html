@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazing Animals</title>
+    <link rel="stylesheet" href="animals.css">
+</head>
+<body>
+    <header>
+        <h1>Amazing Animals</h1>
+        <p>Discover the wonderful world of animals!</p>
+        <div class="search-container">
+            <input type="text" id="searchBox" placeholder="Search animals...">
+        </div>
+    </header>
+
+    <main>
+        <section class="animal-category">
+            <h2>Wild Animals</h2>
+            <div class="animal-grid">
+                <div class="animal-card" data-category="wild">
+                    <img src="lion.jpg" alt="Lion">
+                    <h3>Lion</h3>
+                    <p>Known as the "King of the Jungle", lions are majestic big cats that live in groups called prides.</p>
+                    <div class="fun-fact">
+                        <h4>Did you know?</h4>
+                        <p>A lion's roar can be heard from up to 5 miles away!</p>
+                    </div>
+                </div>
+                <div class="animal-card" data-category="wild">
+                    <img src="elephant.jpg" alt="Elephant">
+                    <h3>Elephant</h3>
+                    <p>Elephants are the largest land animals on Earth. They're known for their intelligence and strong family bonds.</p>
+                    <div class="fun-fact">
+                        <h4>Did you know?</h4>
+                        <p>Elephants are the only mammals that can't jump!</p>
+                    </div>
+                </div>
+                <div class="animal-card" data-category="wild">
+                    <img src="girrafe.jpg" alt="Giraffe">
+                    <h3>Giraffe</h3>
+                    <p>Giraffes are the tallest living terrestrial animals, with their long necks helping them reach tree leaves.</p>
+                    <div class="fun-fact">
+                        <h4>Did you know?</h4>
+                        <p>A giraffe's tongue can be up to 50 cm long and is dark blue-black in color!</p>
+                    </div>
+                </div>
+                <div class="animal-card" data-category="wild">
+                    <img src="tiger.jpg" alt="Tiger">
+                    <h3>Tiger</h3>
+                    <p>Tigers are the largest living cat species and are easily recognized by their distinctive orange fur with black stripes.</p>
+                    <div class="fun-fact">
+                        <h4>Did you know?</h4>
+                        <p>Every tiger has its own unique stripe pattern, like human fingerprints!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="animal-category">
+            <h2>Marine Life</h2>
+            <div class="animal-grid">
+                <div class="animal-card" data-category="marine">
+                    <img src="dolphin.jpg" alt="Dolphin">
+                    <h3>Dolphin</h3>
+                    <p>Dolphins are highly intelligent marine mammals known for their playful nature and complex social structures.</p>
+                    <div class="fun-fact">
+                        <h4>Did you know?</h4>
+                        <p>Dolphins sleep with one half of their brain at a time!</p>
+                    </div>
+                </div>
+                <div class="animal-card" data-category="marine">
+                    <img src="blue whale.jpg" alt="Whale">
+                    <h3>Blue Whale</h3>
+                    <p>Blue whales are the largest animals ever known to exist, reaching lengths of up to 100 feet.</p>
+                    <div class="fun-fact">
+                        <h4>Did you know?</h4>
+                        <p>A blue whale's heart can be as large as a car!</p>
+                    </div>
+                </div>
+                <div class="animal-card" data-category="marine">
+                    <img src="octopus.jpg" alt="Octopus">
+                    <h3>Octopus</h3>
+                    <p>Octopi are incredibly intelligent creatures known for their problem-solving abilities and camouflage skills.</p>
+                    <div class="fun-fact">
+                        <h4>Did you know?</h4>
+                        <p>Octopi have three hearts and blue blood!</p>
+                    </div>
+                </div>
+                <div class="animal-card" data-category="marine">
+                    <img src="white.jpg" alt="Great White Shark">
+                    <h3>Great White Shark</h3>
+                    <p>Great white sharks are powerful predators and the largest known predatory fish in the world.</p>
+                    <div class="fun-fact">
+                        <h4>Did you know?</h4>
+                        <p>Sharks can detect a single drop of blood in 100 liters of water!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="animal-category">
+            <h2>Pets</h2>
+            <div class="animal-grid">
+                <div class="animal-card">
+                    <img src="dog.jpg" alt="Dog">
+                    <h3>Dog</h3>
+                    <p>Dogs are known as man's best friend, offering loyalty, companionship, and unconditional love.</p>
+                </div>
+                <div class="animal-card">
+                    <img src="cat.jpg" alt="Cat">
+                    <h3>Cat</h3>
+                    <p>Cats are independent and graceful pets that have been living alongside humans for thousands of years.</p>
+                </div>
+                <div class="animal-card">
+                    <img src="parrot.jpg" alt="Parrot">
+                    <h3>Parrot</h3>
+                    <p>Parrots are intelligent birds that can mimic human speech and make wonderful companion pets.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Image Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modalMainImage" src="" alt="Animal">
+            <div class="modal-gallery" id="modalGallery"></div>
+            <div class="modal-nav modal-prev">&lt;</div>
+            <div class="modal-nav modal-next">&gt;</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Amazing Animals. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Image gallery functionality
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalMainImage');
+        const modalGallery = document.getElementById('modalGallery');
+        const closeBtn = document.querySelector('.close-modal');
+        let currentAnimal = '';
+        let currentImageIndex = 0;
+
+        // Image collections for each animal
+        const animalImages = {
+            'Lion': [
+                'https://source.unsplash.com/800x600/?lion,wild',
+                'https://source.unsplash.com/800x600/?lion,face',
+                'https://source.unsplash.com/800x600/?lion,pride',
+                'https://source.unsplash.com/800x600/?lion,cub'
+            ],
+            'Tiger': [
+                'https://source.unsplash.com/800x600/?tiger,wild',
+                'https://source.unsplash.com/800x600/?tiger,face',
+                'https://source.unsplash.com/800x600/?tiger,stripes',
+                'https://source.unsplash.com/800x600/?tiger,cub'
+            ],
+            'Elephant': [
+                'https://source.unsplash.com/800x600/?elephant,wild',
+                'https://source.unsplash.com/800x600/?elephant,face',
+                'https://source.unsplash.com/800x600/?elephant,herd',
+                'https://source.unsplash.com/800x600/?elephant,baby'
+            ],
+            'Giraffe': [
+                'https://source.unsplash.com/800x600/?giraffe,wild',
+                'https://source.unsplash.com/800x600/?giraffe,face',
+                'https://source.unsplash.com/800x600/?giraffe,pattern',
+                'https://source.unsplash.com/800x600/?giraffe,baby'
+            ]
+        };
+
+        // Add click handlers to all animal images
+        document.querySelectorAll('.animal-card img').forEach(img => {
+            img.addEventListener('click', function() {
+                const animalName = this.closest('.animal-card').querySelector('h3').textContent;
+                openModal(animalName, this.src);
+            });
+        });
+
+        function openModal(animalName, initialImage) {
+            currentAnimal = animalName;
+            modal.style.display = 'block';
+            
+            // Get images for this animal or use a default set
+            const images = animalImages[animalName] || [initialImage];
+            currentImageIndex = 0;
+            
+            // Set main image
+            modalImage.src = images[0];
+            
+            // Create thumbnails
+            modalGallery.innerHTML = '';
+            images.forEach((src, index) => {
+                const thumb = document.createElement('img');
+                thumb.src = src;
+                thumb.classList.add('modal-thumbnail');
+                if (index === 0) thumb.classList.add('active');
+                thumb.addEventListener('click', () => {
+                    modalImage.src = src;
+                    currentImageIndex = index;
+                    updateThumbnailSelection();
+                });
+                modalGallery.appendChild(thumb);
+            });
+        }
+
+        function updateThumbnailSelection() {
+            document.querySelectorAll('.modal-thumbnail').forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === currentImageIndex);
+            });
+        }
+
+        // Close modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close on outside click
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Navigation
+        document.querySelector('.modal-prev').addEventListener('click', () => {
+            const images = animalImages[currentAnimal] || [];
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            modalImage.src = images[currentImageIndex];
+            updateThumbnailSelection();
+        });
+
+        document.querySelector('.modal-next').addEventListener('click', () => {
+            const images = animalImages[currentAnimal] || [];
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            modalImage.src = images[currentImageIndex];
+            updateThumbnailSelection();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (modal.style.display === 'block') {
+                if (e.key === 'Escape') {
+                    modal.style.display = 'none';
+                } else if (e.key === 'ArrowLeft') {
+                    document.querySelector('.modal-prev').click();
+                } else if (e.key === 'ArrowRight') {
+                    document.querySelector('.modal-next').click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
